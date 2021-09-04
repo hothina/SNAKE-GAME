@@ -18,6 +18,7 @@ function game (){
             ctx.font="30px Arial";
             ctx.fillStyle = "blue";
             ctx.fillText("game over",135,200);
+            document.getElementById("replay").style.display = "initial";
             document.querySelector("#music").pause();
         }
     }

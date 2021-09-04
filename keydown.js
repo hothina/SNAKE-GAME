@@ -12,22 +12,20 @@
             ctx=canv.getContext("2d");
             ctx.fillStyle = "gray";
             ctx.fillRect(0,0,canv.width,canv.height);
-            ctx.font="20px Arial";
-            ctx.fillStyle = "blue";
-            ctx.fillText("Nhấn phím mũi tên để bắt đầu bắt đầu",10,200);
-            var x=0;
-            document.addEventListener("keydown", event => {
-  if (event.keyCode == 39||event.keyCode == 37||event.keyCode == 38||event.keyCode == 40) {
-        x ++;
-        if(x==1)
-        {     document.addEventListener("keydown",button_handle);
-             set = setInterval(game,200);}
-  }
-});
- }
-
-        
-        function button_handle(key){
+            document.getElementById("replay").style.display = "none";
+        }
+           
+            function stargame() {
+                var x = 0;
+                x++;
+                if (x == 1) {
+                    document.addEventListener("keydown", button_handle);
+                    set = setInterval(game, 200);
+                    document.getElementById("stgame").style.display = "none";
+    
+                }
+            }
+            function button_handle(key){
             switch(key.keyCode){
                 case 37: //trai
                 if (check == 0|| check!=3)

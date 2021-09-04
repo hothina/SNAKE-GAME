@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <a hef
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <audio src="music.mp3" id="music" loop></audio>
+    <audio src="eat.mp3" id="eat-audio"></audio>
+    <canvas id="game" width="400" height="400" style="position: absolute;"></canvas>
+    <button id="stgame" onclick="stargame()" style="position: absolute;left: 160px; top :200px ;">stargame</button>
+    <button href="http://127.0.0.1:5500/.htvdml"   onclick=";window.location.href=this.getAttribute('href');return false;" id="replay" style="position: absolute;left: 170px; top: 210px;">replay</button>
+    <script>
+        width = 20;
+        unit = 20;
+        snake = [];
+        head_x = 10; head_y = 10;
+        snake_length = 1;
+        denta_x = 0; denta_y = 0;
+        check = 0;
+        food_x = 15; food_y = 15;
+        window.onload = function () {
+            canv = document.getElementById("game");
+            ctx = canv.getContext("2d");
+            ctx.fillStyle = "gray";
+            ctx.fillRect(0, 0, canv.width, canv.height);
+            document.getElementById("replay").style.display = "none";
+
+            // ctx.font = "20px Arial";
+            // ctx.fillStyle = "blue";
+            // ctx.fillText("Nhấn phím mũi tên để bắt đầu bắt đầu", 10, 200);
+            // //             var x=0;
+            //             document.addEventListener("keydown", event => {
+            //   if (event.keyCode == 39||event.keyCode == 37||event.keyCode == 38||event.keyCode == 40) {
+            //         x ++;
+            //         if(x==1)
+            //         {     document.addEventListener("keydown",button_handle);
+            //              set = setInterval(game,200);}
+            //   }
+            // });
+        }
+        
+        function stargame() {
+            var x = 0;
+            x++;
+            if (x == 1) {
+                document.addEventListener("keydown", button_handle);
+                set = setInterval(game, 200);
+                document.getElementById("stgame").style.display = "none";
+
+            }
+        }
+
+            function button_handle(key) {
+                switch (key.keyCode) {
+                    case 37: //trai
+                        if (check == 0 || check != 3) {
+                            denta_x = -1; denta_y = 0;
+                            check = 1;
+                        }
+                        break;
+                    case 38: //len
+                        if (check == 0 || check != 4) {
+                            denta_x = 0; denta_y = -1;
+                            check = 2;
+                        }
+                        break;
+                    case 39:  //phai
+                        if (check == 0 || check != 1) {
+                            denta_x = 1; denta_y = 0;
+                            check = 3;
+                        }
+                        break;
+
+                    case 40: // xuong
+                        if (check == 0 || check != 2) {
+                            denta_y = 1; denta_x = 0;
+                            check = 4;
+                        }
+                        break;
+
+                }
+            }
+            function game() {
+                document.querySelector("#music").play();
+                head_x = head_x + denta_x;
+                head_y = head_y + denta_y;
+                if (head_x < 0) head_x = width - 1;
+                if (head_y < 0) head_y = width - 1;
+                if (head_x > width - 1) head_x = 0;
+                if (head_y > width - 1) head_y = 0;
+              
+
+                ctx.fillStyle = "gray";
+                ctx.fillRect(0, 0, canv.width, canv.height);
+                for (var i = 0; i < snake.length; i++) {
+                    ctx.fillStyle = "yellow";
+                    ctx.fillRect(snake[i].x * unit, snake[i].y * unit, unit - 2, unit - 2);
+                    if (snake[i].x == head_x && snake[i].y == head_y && snake.length >= 2) {
+
+                        clearInterval(set);
+                        ctx.font = "30px Arial";
+                        ctx.fillStyle = "blue";
+                        ctx.fillText("game over", 135, 200);
+                        document.getElementById("replay").style.display = "initial";
+
+                         document.querySelector("#music").pause();
+                        // document.getElementById("stgame").style.display = "block";
+                        // document.getElementById("stgame").style.left = "160px" 
+                        // document.getElementById("stgame").style.top ="200px"
+                        // document.getElementById("stgame").style.position ="absolute";
+                    }
+                }
+                snake.push({ x: head_x, y: head_y });
+                while (snake.length > snake_length) {
+                    snake.shift();
+                }
+                if (food_x == head_x && food_y == head_y) {
+                    document.querySelector('#eat-audio').play();
+                    snake_length++;
+                    food_x = Math.floor(Math.random() * width);
+                    food_y = Math.floor(Math.random() * width);
+                }
+                ctx.fillStyle = "red";
+                ctx.fillRect(food_x * unit, food_y * unit, unit - 2, unit - 2);
+            }
+    </script>
+</body>
+
+</html>

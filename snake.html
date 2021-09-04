@@ -9,9 +9,12 @@
 <body>
     <audio src="music.mp3" id="music" loop></audio>
     <audio src="eat.mp3" id="eat-audio"></audio>
-    <canvas id="game" width="400" height="400"></canvas>
+    <canvas id="game" width="400" height="400" style="position: absolute;"></canvas>
+    <button id="stgame" onclick="stargame()" style="position: absolute;left: 160px; top :200px ;">stargame</button>
     <script src ="game.js"></script>
-   <script src ="food.js"></script>
+   <script src ="keydown.js"></script>
+   <button href="http://127.0.0.1:5500/snake.html"   onclick=";window.location.href=this.getAttribute('href');return false;" id="replay" style="position: absolute;left: 170px; top: 210px;">replay</button>
+
        
 </body>
 </html>
